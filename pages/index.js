@@ -1,7 +1,7 @@
 import React from 'react';
 import {graphql} from 'react-apollo';
 import gql from 'graphql-tag';
-import withData from '../apollo/withData'
+import withData from '../apollo/initApollo';
 const Query = gql 
 `{
     products {
@@ -12,9 +12,14 @@ const Query = gql
 class App extends React.Component {
   productsRender() {
     let data = this.props.data;
+    console.log(data)
     if (data.loading) {
       return (
         <div>loading products ...</div>
+      )
+    }else if(data.error){
+      return(
+        <div>Error</div>
       )
     }
     else {
