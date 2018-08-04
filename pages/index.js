@@ -1,37 +1,27 @@
 import React from 'react';
 import {graphql} from 'react-apollo';
 import gql from 'graphql-tag';
-import withData from '../apollo/withData'
-const Query = gql 
-`{
+import withData from '../apollo/initApollo';
+
+const Query = gql`
+  {
     products {
       id
       name
     }
-}`
-class App extends React.Component {
-  productsRender() {
-    let data = this.props.data;
-    if (data.loading) {
-      return (
-        <div>loading products ...</div>
-      )
-    }
-    else {
-      return data.products.map(product => {
-        return (
-          <h1>{product.name}</h1>
-        )
-      })
-    }
   }
+`
+class App extends React.Component {
   render () {
+    let products = this.props.data.products;
+    let products_Array = Object.keys(products);
     return (
       <div>
-        {this.productsRender()}
+        {
+          products.name
+        }
       </div>
     )
   }
 }
-const graphql_filter = graphql(Query)(App);
-export default withData(graphql_filter);
+export default withData(graphql(Query)(App));
